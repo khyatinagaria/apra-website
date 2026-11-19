@@ -1,0 +1,739 @@
+<title>APRA Fresh Store</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Fresh milk, dahi, paneer, lassi and bilona ghee from APRA, Bundelkhand's first dairy. Order online, pay cash on delivery.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&family=DM+Mono:wght@500&display=swap">
+<style>
+/* Design system: DESIGN.md "Doodh Pop". Layout: search-first header, red hero band with a curved edge, category circles, chip-filtered grid of tinted product cards, a ghee band; detail, checkout and orders are hash views. */
+:root{
+  --bg:#FFFFFF; --surface:#EAF4FB; --surface-ghee:#FFF4D2; --surface-leaf:#E3F3E9;
+  --border:#D5E3EE; --fg:#1D1B2C; --muted:#5A6577;
+  --red:#E31E24; --ghee:#FFC72C; --leaf:#1E8E4E;
+  --on-red:#FFFFFF; --on-ghee:#1D1B2C; --scrim:rgba(20,19,32,.5);
+  --f-display:"Baloo 2","Nunito Sans",system-ui,sans-serif;
+  --f-body:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-num:"DM Mono",ui-monospace,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--bg)}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--ghee);outline-offset:2px;border-radius:8px}
+h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+.label{font-size:.82rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.muted{color:var(--muted)}
+
+/* buttons */
+.btn{white-space:nowrap;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 24px;border-radius:999px;font-family:var(--f-display);font-weight:700;font-size:1.05rem;border:2px solid transparent;cursor:pointer;text-decoration:none;transition:transform .15s ease-out}
+.btn:active{transform:scale(.97)}
+.btn.red{background:var(--red);color:var(--on-red)}
+.btn.ghee{background:var(--ghee);color:var(--on-ghee)}
+.btn.outline{border-color:var(--border);background:var(--bg)}
+.btn.outline:hover{border-color:var(--fg)}
+.btn.wa{background:var(--leaf);color:#fff}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+
+/* header */
+header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--bg);border-bottom:1.5px solid var(--border)}
+.bar .wrap{display:flex;align-items:center;gap:16px;padding-block:10px}
+.logo{display:block;flex-shrink:0;border-radius:12px;overflow:hidden;background:#fff;width:72px;height:48px}
+.logo img{width:100%;height:100%;object-fit:cover;display:block}
+.search{position:relative;flex:1;min-width:0}
+.search input{width:100%;height:48px;border-radius:999px;border:2px solid transparent;background:var(--surface);padding:0 18px 0 46px;font-size:1rem}
+.search input::placeholder{color:var(--muted)}
+.search input:focus{border-color:var(--red);outline:none;background:var(--bg)}
+.search svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.suggest{position:absolute;left:0;right:0;top:56px;background:var(--bg);border:1.5px solid var(--border);border-radius:20px;padding:8px;max-height:70vh;overflow:auto}
+.suggest button{display:flex;gap:12px;align-items:center;width:100%;padding:8px;border:0;background:none;border-radius:14px;text-align:left;cursor:pointer}
+.suggest button:hover,.suggest button.on{background:var(--surface)}
+.suggest img{width:48px;height:48px;border-radius:12px;object-fit:cover}
+.suggest .t{flex:1;min-width:0;font-weight:600;line-height:1.25}
+.suggest .t small{display:block;font-weight:400;color:var(--muted)}
+.suggest .empty{padding:12px;color:var(--muted)}
+.suggest .all{color:var(--red);font-family:var(--f-display);font-weight:700}
+.cartbtn{display:flex;align-items:center;gap:8px;height:48px;padding:0 18px;border-radius:999px;border:0;background:var(--red);color:var(--on-red);font-family:var(--f-display);font-weight:700;font-size:1.02rem;cursor:pointer;flex-shrink:0}
+.cartbtn b{min-width:24px;height:24px;border-radius:12px;background:var(--ghee);color:var(--on-ghee);font-family:var(--f-num);font-size:.82rem;display:grid;place-items:center;padding:0 6px}
+.cartbtn.bump{animation:bump .35s ease-out}
+@keyframes bump{40%{transform:scale(1.12)}}
+@media (max-width:640px){.cartbtn .lbl{display:none}.bar .wrap{gap:10px}.logo{width:58px;height:40px}.cartbtn{padding:0 14px}}
+
+/* hero */
+.hero{background:var(--red);color:var(--on-red);position:relative;padding-block:44px 88px}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:56px;background:var(--bg);border-radius:50% 50% 0 0/100% 100% 0 0}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;position:relative;z-index:1}
+.hero .label{color:var(--ghee)}
+.hero h1{font-size:clamp(2.4rem,6vw,4.5rem);font-weight:800;line-height:1;margin-top:10px}
+.hero h1 .hi{display:block;font-size:.55em;font-weight:700;margin-top:8px;opacity:.95}
+.hero p{font-size:1.15rem;max-width:46ch;margin:18px 0 26px;opacity:.95}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.hero .btn.outline{background:transparent;border-color:rgba(255,255,255,.6);color:var(--on-red)}
+.hero .btn.outline:hover{border-color:#fff}
+.heroart{position:relative;max-width:100%}
+.heroart img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:28px;border:6px solid #fff}
+.pricechip{position:absolute;left:-14px;bottom:28px;background:var(--ghee);color:var(--on-ghee);border-radius:20px;padding:10px 16px;line-height:1.2;transform:rotate(-4deg)}
+.pricechip b{display:block;font-family:var(--f-num);font-size:1.5rem}
+.pricechip span{font-weight:700;font-size:.88rem}
+@media (max-width:860px){.hero{padding-block:28px 72px}.hero .wrap{grid-template-columns:1fr;gap:24px}.heroart{max-width:440px}.pricechip{left:12px}}
+
+/* trust */
+.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:-8px;padding-block:8px 8px}
+.trust div{display:flex;flex-direction:column}
+.trust b{font-family:var(--f-num);font-size:1.6rem;color:var(--red);line-height:1.2}
+.trust span{color:var(--muted);font-size:.92rem}
+@media (max-width:720px){.trust{grid-template-columns:repeat(2,1fr)}}
+
+/* categories */
+.cats{padding-block:40px 8px}
+.cats h2{font-size:1.75rem;margin-bottom:18px}
+.circles{display:flex;gap:18px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+.circle{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:6px;width:112px;text-decoration:none;text-align:center;background:none;border:0;cursor:pointer;padding:0}
+.circle .ring{width:104px;height:104px;border-radius:50%;padding:6px;background:var(--surface);border:2px solid transparent;transition:border-color .15s}
+.circle:hover .ring,.circle[aria-pressed="true"] .ring{border-color:var(--red)}
+.circle img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
+.circle .n{font-family:var(--f-display);font-weight:700;line-height:1.15}
+.circle .h{font-size:.85rem;color:var(--muted);line-height:1}
+.t-milk{--tint:var(--surface)} .t-curd,.t-drinks{--tint:var(--surface-leaf)} .t-ghee,.t-pantry{--tint:var(--surface-ghee)}
+.circle .ring{background:var(--tint,var(--surface))}
+
+/* shop grid */
+.shop{padding-block:32px 64px;scroll-margin-top:76px}
+.shophead{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.shophead h2{font-size:1.75rem;line-height:1.15}
+.shophead .label{color:var(--red)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:20px;scrollbar-width:none}
+.chip{flex-shrink:0;border:1.5px solid var(--border);background:var(--bg);border-radius:999px;padding:8px 18px;cursor:pointer;font-family:var(--f-display);font-weight:600;white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+select.sort{height:44px;border-radius:999px;border:1.5px solid var(--border);background:var(--bg);padding:0 16px;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+@media (max-width:540px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
+.card{display:flex;flex-direction:column;background:var(--bg);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;transition:transform .2s ease-out}
+.card:hover{transform:translateY(-2px)}
+.card .ph{position:relative;display:block;padding:10px;background:var(--tint,var(--surface))}
+.card .ph img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:14px;background:#fff}
+.badge{position:absolute;top:18px;left:18px;font-size:.74rem;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--ghee);color:var(--on-ghee)}
+.badge.leaf{background:var(--leaf);color:#fff}
+.card .bd{padding:12px 14px 14px;display:flex;flex-direction:column;gap:4px;flex:1}
+.card h3{font-weight:600;font-size:1.05rem;line-height:1.25}
+.card h3 a{text-decoration:none}
+.card h3 a:hover{color:var(--red)}
+.pr{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.pr b{font-family:var(--f-num);font-size:1.2rem;font-weight:500}
+.pr s{font-family:var(--f-num);color:var(--muted);font-size:.9rem}
+.unit{font-size:.82rem;color:var(--muted)}
+.card .add{margin-top:auto;padding-top:8px}
+.addbtn{width:100%;height:44px;border-radius:999px;border:0;background:var(--red);color:var(--on-red);font-family:var(--f-display);font-weight:700;font-size:1rem;cursor:pointer}
+.stepper{display:flex;align-items:center;justify-content:space-between;height:44px;border-radius:999px;background:var(--surface);border:2px solid var(--red);overflow:hidden}
+.stepper button{width:44px;height:40px;border:0;background:transparent;color:var(--red);font-size:1.4rem;font-weight:700;cursor:pointer}
+.stepper span{font-family:var(--f-num);font-weight:500}
+.noresults{grid-column:1/-1;padding:40px 16px;text-align:center;color:var(--muted);background:var(--surface);border-radius:20px}
+
+/* ghee band */
+.gheeband{background:var(--surface-ghee);padding-block:56px;position:relative}
+.gheeband .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:center}
+.gheeband img{width:100%;max-width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:28px;display:block}
+.gheeband h2{font-size:clamp(2rem,4vw,3rem);line-height:1.05}
+.gheeband p{max-width:52ch;margin:14px 0 22px}
+.gheeband ul{list-style:none;padding:0;margin:0 0 24px;display:flex;flex-direction:column;gap:8px}
+.gheeband li{display:flex;gap:10px;align-items:baseline}
+.gheeband li::before{content:"";flex-shrink:0;width:10px;height:10px;border-radius:50%;background:var(--ghee);transform:translateY(-1px)}
+@media (max-width:820px){.gheeband .wrap{grid-template-columns:1fr}.gheeband img{max-width:420px}}
+
+/* product page */
+.pdp{padding-block:24px 64px}
+.crumbs{font-size:.92rem;color:var(--muted);margin-bottom:18px}
+.crumbs a{text-decoration:none}.crumbs a:hover{color:var(--red)}
+.pdp .layout{display:grid;grid-template-columns:1.05fr 1fr;gap:44px;align-items:start}
+@media (max-width:860px){.pdp .layout{grid-template-columns:1fr;gap:24px}}
+.gal .main{padding:14px;border-radius:28px;background:var(--tint,var(--surface))}
+.gal .main img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:20px;background:#fff}
+.thumbs{display:flex;gap:10px;margin-top:12px;overflow-x:auto}
+.thumbs button{flex-shrink:0;width:76px;height:76px;padding:0;border-radius:16px;overflow:hidden;border:3px solid transparent;background:#fff;cursor:pointer}
+.thumbs button[aria-current="true"]{border-color:var(--red)}
+.thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+.info{display:flex;flex-direction:column;gap:18px;min-width:0}
+.info .label{color:var(--red)}
+.info h1{font-size:clamp(2rem,4vw,2.6rem);font-weight:800;line-height:1.08}
+.info .pr b{font-size:2rem}
+.buy{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.qty{display:flex;align-items:center;background:var(--surface);border-radius:999px;height:48px}
+.qty button{width:48px;height:48px;border:0;background:none;font-size:1.4rem;font-weight:700;cursor:pointer;color:var(--red)}
+.qty span{min-width:28px;text-align:center;font-family:var(--f-num)}
+.perks{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.perks div{background:var(--surface);border-radius:16px;padding:12px 14px;font-size:.9rem;line-height:1.35}
+.perks div:first-child{background:var(--surface-leaf)}
+.perks b{display:block;font-family:var(--f-display);font-size:1rem}
+@media (max-width:480px){.perks{grid-template-columns:1fr}}
+.desc h2{font-size:1.3rem;margin-bottom:8px}
+.desc ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px}
+.related{margin-top:56px}
+.related h2{font-size:1.75rem;margin-bottom:16px}
+
+/* drawer */
+.scrim{position:fixed;inset:0;background:var(--scrim);z-index:50}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--bg);z-index:51;display:flex;flex-direction:column;border-radius:24px 0 0 24px;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px)}
+.drawer header{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1.5px solid var(--border)}
+.drawer h2{font-size:1.6rem}
+.x{width:44px;height:44px;border-radius:50%;border:0;background:var(--surface);cursor:pointer;font-size:1.1rem}
+.lines{flex:1;overflow:auto;padding:8px 20px}
+.line{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1.5px solid var(--border)}
+.line img{width:64px;height:64px;border-radius:14px;object-fit:cover}
+.line .t{font-weight:600;line-height:1.3}
+.mini{display:flex;align-items:center;gap:4px;margin-top:6px}
+.mini button{width:32px;height:32px;border-radius:50%;border:0;background:var(--surface);color:var(--red);font-weight:700;cursor:pointer}
+.mini span{min-width:26px;text-align:center;font-family:var(--f-num)}
+.rm{border:0;background:none;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:.88rem;margin-left:8px}
+.drawer footer{padding:16px 20px;border-top:1.5px solid var(--border);display:flex;flex-direction:column;gap:12px}
+.row{display:flex;justify-content:space-between;gap:12px}
+.emptycart{padding:48px 0;text-align:center;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:14px}
+
+/* checkout */
+.co{padding-block:32px 72px}
+.co h1{font-size:2.25rem;line-height:1.1}
+.co .layout{display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:start;margin-top:20px}
+@media (max-width:860px){.co .layout{grid-template-columns:1fr}}
+.panel{background:var(--bg);border:1.5px solid var(--border);border-radius:20px;padding:22px}
+.panel h2{font-size:1.3rem;margin-bottom:14px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fields .full{grid-column:1/-1}
+@media (max-width:540px){.fields{grid-template-columns:1fr}}
+label.f{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:.95rem}
+label.f input,label.f select,label.f textarea{height:50px;border-radius:14px;border:2px solid transparent;background:var(--surface);padding:0 14px;font-size:1rem;font-weight:400}
+label.f textarea{height:84px;padding:12px 14px;resize:vertical}
+label.f input:focus,label.f select:focus,label.f textarea:focus{border-color:var(--red);outline:none;background:var(--bg)}
+label.f .err{color:var(--red);font-size:.85rem}
+label.f.bad input{border-color:var(--red)}
+.pay{display:flex;gap:14px;align-items:flex-start;background:var(--surface-leaf);border:2px solid var(--leaf);border-radius:16px;padding:16px}
+.pay .dot{width:22px;height:22px;border-radius:50%;border:7px solid var(--leaf);background:var(--bg);flex-shrink:0;margin-top:2px}
+.pay b{display:block;font-family:var(--f-display);font-size:1.1rem}
+.summary{position:sticky;top:92px}
+.summary .line{grid-template-columns:52px 1fr auto}
+.summary .line img{width:52px;height:52px}
+.total{font-family:var(--f-display);font-size:1.4rem;font-weight:800}
+.total .num{font-weight:500}
+.note{font-size:.9rem;color:var(--muted)}
+.formerr{background:var(--surface-ghee);border-radius:12px;padding:10px 14px;font-size:.95rem;font-weight:600}
+
+/* done */
+.done{padding-block:48px 72px}
+.done .box{max-width:620px;margin:0 auto;display:flex;flex-direction:column;gap:16px;text-align:center;align-items:center}
+.tick{width:72px;height:72px;border-radius:50%;background:var(--leaf);color:#fff;display:grid;place-items:center}
+.done h1{font-size:2.4rem;line-height:1.05}
+.oid{font-family:var(--f-num);background:var(--surface);padding:4px 12px;border-radius:999px}
+.receipt{width:100%;background:var(--surface);border-radius:20px;padding:18px 20px;text-align:left}
+.receipt .row{padding:6px 0;border-bottom:1.5px dashed var(--border)}
+.receipt .row:last-child{border:0}
+
+/* orders admin */
+.adm{padding-block:32px 72px}
+.adm h1{font-size:2.25rem}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0}
+.kpis div{background:var(--surface);border-radius:16px;padding:14px 16px}
+.kpis b{display:block;font-family:var(--f-num);font-size:1.6rem;font-weight:500}
+.kpis span{font-size:.88rem;color:var(--muted)}
+@media (max-width:640px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.olist{display:flex;flex-direction:column;gap:12px}
+.order{border:1.5px solid var(--border);border-radius:20px;padding:16px 18px;display:grid;grid-template-columns:1fr 1fr 180px;gap:16px}
+@media (max-width:760px){.order{grid-template-columns:1fr}}
+.order h3{font-size:1.1rem}
+.order .meta{font-size:.9rem;color:var(--muted)}
+.order ul{margin:6px 0 0;padding-left:18px;font-size:.95rem}
+.pill{display:inline-block;font-family:var(--f-body);font-size:.74rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 10px;border-radius:999px;vertical-align:middle;margin-left:6px}
+.st-new{background:var(--red);color:var(--on-red)}
+.st-confirmed{background:var(--ghee);color:var(--on-ghee)}
+.st-delivered{background:var(--leaf);color:#fff}
+.st-cancelled{background:var(--surface);color:var(--muted)}
+
+/* footer */
+footer.site{background:var(--red);color:var(--on-red);padding-block:48px 32px;position:relative;margin-top:24px}
+footer.site::before{content:"";position:absolute;left:0;right:0;top:-1px;height:40px;background:var(--bg);border-radius:0 0 50% 50%/0 0 100% 100%}
+footer.site .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:28px;position:relative;padding-top:20px}
+footer.site h3{font-size:1.2rem;margin-bottom:6px}
+footer.site p{margin:4px 0;font-size:.95rem;opacity:.95}
+footer.site a{color:var(--on-red)}
+footer.site .copy{grid-column:1/-1;border-top:1.5px solid rgba(255,255,255,.3);padding-top:16px;font-size:.88rem;opacity:.85}
+@media (max-width:760px){footer.site .wrap{grid-template-columns:1fr}}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:12px 20px;border-radius:999px;z-index:60;font-weight:600;max-width:calc(100% - 32px)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="logo" href="#" aria-label="APRA home"><img src="images/logo.webp" alt="APRA"></a>
+    <div class="search" role="search">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search milk, dahi, ghee, paneer…" autocomplete="off" aria-label="Search products">
+      <div class="suggest" id="suggest" hidden></div>
+    </div>
+    <button class="cartbtn" id="cartbtn" aria-label="Open cart"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg><span class="lbl">Cart</span><b id="cartcount">0</b></button>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <h3>APRA · एप्रा</h3>
+      <p>The first dairy of the Bundelkhand region. Milk from 1000+ trusted farmers, delivered to 2,40,000 families.</p>
+      <p>Vasudhaiva Kutumbakam: the world is our family.</p>
+    </div>
+    <div>
+      <h3>Talk to us</h3>
+      <p>Customer care: <span class="num">+91 95060 35702</span></p>
+      <p>apradairy@gmail.com</p>
+      <p>Gahoi Enclave Society Road, Mission Compound, Jhansi, UP 284003</p>
+    </div>
+    <div>
+      <h3>Good to know</h3>
+      <p>Free delivery and cash on delivery on every order.</p>
+      <p>Delivery in 2 to 15 days, depending on your address.</p>
+      <p>Returns within 5 days for unopened packs.</p>
+      <p><a href="#orders" id="adminlink" hidden>Store orders</a></p>
+    </div>
+    <div class="copy">© 2026 APRA · apraworld.com</div>
+  </div>
+</footer>
+
+<div id="drawerroot"></div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="products.js"></script>
+<script>
+(() => {
+/* ====== Settings: fill these in when you go live ====== */
+const CONFIG = {
+  // Paste the Google Apps Script web-app URL here to receive every order in a Google Sheet.
+  SHEET_URL: "",
+  // Orders are also offered to the customer as a WhatsApp message to this number.
+  WHATSAPP: "919506035702",
+  CARE_PHONE: "+91 95060 35702",
+};
+
+const P = window.APRA_PRODUCTS || [];
+const byHandle = Object.fromEntries(P.map(p => [p.handle, p]));
+const CATS = [
+  {id:"all", name:"All", hi:""},
+  {id:"milk", name:"Milk", hi:"दूध", img:"apra-toned-milk-500-ml"},
+  {id:"curd", name:"Dahi & Paneer", hi:"दही, पनीर", img:"apra-dahi-cup-200-gm"},
+  {id:"drinks", name:"Lassi & Chaach", hi:"लस्सी, छाछ", img:"apra-lassi-cup-200-gm"},
+  {id:"ghee", name:"Ghee", hi:"घी", img:"apra-pure-desi-ghee-1-litre"},
+  {id:"pantry", name:"Atta & Oil", hi:"आटा, तेल", img:"kathiya-daliya-500-gram"},
+];
+const catName = id => (CATS.find(c => c.id === id) || CATS[0]).name;
+const SYN = {curd:"dahi", yogurt:"dahi", yoghurt:"dahi", panner:"paneer", chaach:"buttermilk", chhach:"buttermilk", chach:"buttermilk", matha:"buttermilk", mattha:"buttermilk", ghi:"ghee", flour:"atta", wheat:"atta", dalia:"daliya", porridge:"daliya", sarso:"mustard", sarson:"mustard", tea:"chai", doodh:"milk", dudh:"milk", "दूध":"milk", "दही":"dahi", "घी":"ghee", "छाछ":"buttermilk", "लस्सी":"lassi", "पनीर":"paneer", "आटा":"atta"};
+const STATES = ["Uttar Pradesh","Madhya Pradesh","Delhi","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chandigarh","Chhattisgarh","Goa","Gujarat","Haryana","Himachal Pradesh","Jammu and Kashmir","Jharkhand","Karnataka","Kerala","Ladakh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Puducherry","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttarakhand","West Bengal","Andaman and Nicobar Islands","Dadra and Nagar Haveli and Daman and Diu","Lakshadweep"];
+
+const inr = n => "₹" + Number(n).toLocaleString("en-IN", {maximumFractionDigits: 2});
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const short = t => t.replace(/^APRA /, "");
+const $ = s => document.querySelector(s);
+const store = {
+  get(k, d){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch { return d; } },
+  set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+};
+
+/* ---- search ---- */
+const norm = s => s.toLowerCase().replace(/[^a-z0-9ऀ-ॿ ]+/g, " ");
+const index = P.map(p => ({p, text: norm([p.title, catName(p.category), p.brand, p.type, ...(p.tags||[]), CATS.find(c=>c.id===p.category)?.hi, p.description.join(" ")].join(" ")), title: norm(p.title)}));
+function search(q){
+  const terms = norm(q).split(/\s+/).filter(Boolean).map(t => SYN[t] || t);
+  if (!terms.length) return [];
+  return index.map(({p, text, title}) => {
+    let score = 0;
+    for (const t of terms) {
+      if (title.includes(t)) score += 3;
+      else if (text.includes(t)) score += 1;
+      else return null;
+    }
+    return {p, score};
+  }).filter(Boolean).sort((a, b) => b.score - a.score || a.p.price - b.p.price).map(x => x.p);
+}
+
+/* ---- cart ---- */
+let cart = store.get("apra-cart", {});
+Object.keys(cart).forEach(h => { if (!byHandle[h]) delete cart[h]; });
+const cartLines = () => Object.entries(cart).filter(([h,q]) => q > 0 && byHandle[h]).map(([h,q]) => ({p: byHandle[h], q}));
+const cartCount = () => cartLines().reduce((s, l) => s + l.q, 0);
+const cartTotal = () => cartLines().reduce((s, l) => s + l.q * l.p.price, 0);
+function setQty(h, q){
+  const before = cart[h] || 0;
+  q = Math.max(0, Math.min(99, q));
+  if (q) cart[h] = q; else delete cart[h];
+  store.set("apra-cart", cart);
+  $("#cartcount").textContent = cartCount();
+  if (q > before) { const b = $("#cartbtn"); b.classList.remove("bump"); void b.offsetWidth; b.classList.add("bump"); }
+  refreshInline();
+  if (drawerOpen) renderDrawer();
+}
+function refreshInline(){ document.querySelectorAll("[data-add]").forEach(el => { el.innerHTML = addControl(el.dataset.add); }); }
+function addControl(h){
+  const q = cart[h] || 0;
+  if (!q) return `<button class="addbtn" data-act="add" data-h="${h}">Add</button>`;
+  return `<div class="stepper"><button data-act="dec" data-h="${h}" aria-label="One less">−</button><span>${q}</span><button data-act="inc" data-h="${h}" aria-label="One more">+</button></div>`;
+}
+
+let toastT;
+function toast(msg){ const t = $("#toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => t.hidden = true, 2200); }
+
+/* ---- views ---- */
+let state = {cat:"all", sort:"featured", q:""};
+const unitTxt = p => p.unit ? `${inr(p.unit[0])} per ${p.unit[1]}` : "";
+const badge = p => p.compare ? `<span class="badge">Save ${inr(p.compare - p.price)}</span>` : /bilona|a2/i.test(p.title) ? `<span class="badge">Bilona</span>` : p.brand === "Vedanti Natural" ? `<span class="badge leaf">Vedanti Natural</span>` : "";
+
+function card(p){
+  return `<article class="card t-${p.category}">
+    <a class="ph" href="#p-${p.handle}" aria-label="${esc(p.title)}">${badge(p)}<img src="${p.images[0]}" alt="${esc(p.title)}" loading="lazy"></a>
+    <div class="bd">
+      <h3><a href="#p-${p.handle}">${esc(short(p.title))}</a></h3>
+      <div class="pr"><b>${inr(p.price)}</b>${p.compare ? `<s>${inr(p.compare)}</s>` : ""}</div>
+      <div class="unit">${unitTxt(p)}</div>
+      <div class="add" data-add="${p.handle}">${addControl(p.handle)}</div>
+    </div></article>`;
+}
+
+function listProducts(){
+  let list = state.q ? search(state.q) : P.slice();
+  if (state.cat !== "all") list = list.filter(p => p.category === state.cat);
+  if (!state.q || state.sort !== "featured") {
+    const order = ["milk","curd","drinks","ghee","pantry"];
+    const s = {featured:(a,b)=>order.indexOf(a.category)-order.indexOf(b.category)||a.price-b.price, low:(a,b)=>a.price-b.price, high:(a,b)=>b.price-a.price}[state.sort];
+    list.sort(s);
+  }
+  return list;
+}
+
+function renderShopGrid(){
+  const list = listProducts();
+  const head = state.q ? `Results for “${esc(state.q)}”` : state.cat === "all" ? "Everything fresh today" : catName(state.cat);
+  $("#shophead").innerHTML = `<div><div class="label">${list.length} product${list.length===1?"":"s"}</div><h2>${head}</h2></div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">${state.q ? `<button class="btn outline" style="min-height:44px" data-act="clearq">Clear search</button>` : ""}
+    <select class="sort" id="sort" aria-label="Sort products"><option value="featured">Sort: Popular</option><option value="low">Price: low to high</option><option value="high">Price: high to low</option></select></div>`;
+  $("#sort").value = state.sort;
+  $("#chips").innerHTML = CATS.map(c => `<button class="chip" data-cat="${c.id}" aria-pressed="${state.cat===c.id}">${c.name}</button>`).join("");
+  document.querySelectorAll(".circle").forEach(b => b.setAttribute("aria-pressed", state.cat === b.dataset.cat));
+  $("#grid").innerHTML = list.length ? list.map(card).join("") : `<div class="noresults">Nothing matches “${esc(state.q)}”. Try “milk”, “dahi”, “ghee” or “paneer”, or call ${CONFIG.CARE_PHONE} and we'll help.</div>`;
+}
+
+function viewHome(){
+  const gheeP = byHandle["apra-bilona-method-cow-ghee-1-litre"];
+  $("#app").innerHTML = `
+  <section class="hero"><div class="wrap">
+    <div>
+      <div class="label">Bundelkhand's first dairy</div>
+      <h1>Fresh doodh, every morning.<span class="hi">ताज़ा दूध, हर सुबह।</span></h1>
+      <p>Milk, dahi, paneer, lassi and pure bilona ghee from 1000+ local farmers. Free delivery, and you pay cash when it reaches your door.</p>
+      <div class="cta"><a class="btn ghee" href="#shop">Shop now</a><a class="btn outline" href="#c-ghee">See our ghee</a></div>
+    </div>
+    <div class="heroart"><img src="images/apra-full-cream-milk-0.webp" alt="APRA Gold full cream milk pouch with a milk splash"><div class="pricechip"><b>${inr(36)}</b><span>Gold full cream, 500 ml</span></div></div>
+  </div></section>
+  <div class="wrap"><div class="trust">
+    <div><b>1000+</b><span>partner farmers</span></div>
+    <div><b>2,40,000</b><span>families served</span></div>
+    <div><b>50+</b><span>milk collection booths</span></div>
+    <div><b>72°C · 15s</b><span>pasteurised, then chilled to 4°C</span></div>
+  </div></div>
+  <section class="cats"><div class="wrap">
+    <h2>What would you like today?</h2>
+    <div class="circles">${CATS.filter(c => c.img).map(c => `<button class="circle t-${c.id}" data-cat="${c.id}" data-scroll="1" aria-pressed="${state.cat===c.id}"><span class="ring"><img src="images/${c.img}-0.webp" alt=""></span><span class="n">${c.name}</span><span class="h">${c.hi}</span></button>`).join("")}</div>
+  </div></section>
+  <section class="shop" id="shop"><div class="wrap">
+    <div class="shophead" id="shophead"></div>
+    <div class="chips" id="chips" role="toolbar" aria-label="Categories"></div>
+    <div class="grid" id="grid"></div>
+  </div></section>
+  ${gheeP ? `<section class="gheeband"><div class="wrap">
+    <img src="images/apra-bilona-method-cow-ghee-1-litre-0.webp" alt="APRA A2 bilona cow ghee jar">
+    <div>
+      <div class="label" style="color:var(--leaf)">Vedanti Natural · वेदांती नेचुरल</div>
+      <h2>A2 bilona ghee, churned the old way</h2>
+      <p>Curd is hand-churned with a wooden bilona to get makkhan, which is slowly heated into golden ghee. Nothing else goes in.</p>
+      <ul><li>No preservatives, colours or flavouring</li><li>Milk from trusted farmers of Bundelkhand</li><li>Jars from 500 ml to 4.5 kg</li></ul>
+      <div class="cta"><a class="btn red" href="#p-${gheeP.handle}">Buy 1 litre · <span class="num">${inr(gheeP.price)}</span></a><a class="btn outline" href="#c-ghee">All ghee</a></div>
+    </div>
+  </div></section>` : ""}`;
+  renderShopGrid();
+}
+
+function viewProduct(h){
+  const p = byHandle[h];
+  if (!p) return viewHome();
+  const related = P.filter(x => x.category === p.category && x.handle !== h).slice(0, 4);
+  const desc = p.description.length ? `<ul>${p.description.map(l => `<li>${esc(l)}</li>`).join("")}</ul>` : `<p>${esc(p.title)} from ${esc(p.brand)}. Call ${CONFIG.CARE_PHONE} for details.</p>`;
+  let q = 1;
+  $("#app").innerHTML = `<section class="pdp"><div class="wrap">
+    <div class="crumbs"><a href="#">Home</a> / <a href="#c-${p.category}">${catName(p.category)}</a> / ${esc(short(p.title))}</div>
+    <div class="layout">
+      <div class="gal t-${p.category}"><div class="main"><img id="mainimg" src="${p.images[0]}" alt="${esc(p.title)}"></div>
+        ${p.images.length > 1 ? `<div class="thumbs">${p.images.map((s,i) => `<button data-img="${i}" aria-current="${i===0}" aria-label="Photo ${i+1}"><img src="${s}" alt=""></button>`).join("")}</div>` : ""}</div>
+      <div class="info">
+        <div class="label">${esc(p.brand)} · ${catName(p.category)}</div>
+        <h1>${esc(p.title)}</h1>
+        <div><div class="pr"><b>${inr(p.price)}</b>${p.compare ? `<s>${inr(p.compare)}</s>` : ""}</div><div class="unit">${unitTxt(p)} · inclusive of all taxes</div></div>
+        <div class="buy">
+          <div class="qty"><button id="qm" aria-label="One less">−</button><span id="qv">1</span><button id="qp" aria-label="One more">+</button></div>
+          <button class="btn red" id="addp">Add to cart</button>
+          <button class="btn outline" id="buyp">Buy now</button>
+        </div>
+        <div class="perks"><div><b>Cash on delivery</b>Pay when it arrives</div><div><b>2 to 15 days</b>Delivery time by address</div><div><b>5-day returns</b>On unopened packs</div></div>
+        <div class="desc"><h2>About this product</h2>${desc}</div>
+      </div>
+    </div>
+    ${related.length ? `<div class="related"><h2>More ${catName(p.category).toLowerCase()}</h2><div class="grid">${related.map(card).join("")}</div></div>` : ""}
+  </div></section>`;
+  document.querySelectorAll("[data-img]").forEach(b => b.onclick = () => { $("#mainimg").src = p.images[+b.dataset.img]; document.querySelectorAll("[data-img]").forEach(x => x.setAttribute("aria-current", x === b)); });
+  $("#qm").onclick = () => { q = Math.max(1, q-1); $("#qv").textContent = q; };
+  $("#qp").onclick = () => { q = Math.min(99, q+1); $("#qv").textContent = q; };
+  $("#addp").onclick = () => { setQty(h, (cart[h]||0) + q); toast(`Added ${q} × ${short(p.title)}`); };
+  $("#buyp").onclick = () => { setQty(h, (cart[h]||0) + q); location.hash = "checkout"; };
+}
+
+/* ---- drawer ---- */
+let drawerOpen = false;
+function openDrawer(){ drawerOpen = true; renderDrawer(); }
+function closeDrawer(){ drawerOpen = false; $("#drawerroot").innerHTML = ""; }
+function renderDrawer(){
+  const lines = cartLines();
+  $("#drawerroot").innerHTML = `<div class="scrim" data-act="close"></div>
+  <aside class="drawer" role="dialog" aria-label="Your cart">
+    <header><h2>Your cart</h2><button class="x" data-act="close" aria-label="Close cart">✕</button></header>
+    <div class="lines">${lines.length ? lines.map(({p,q}) => `<div class="line"><img src="${p.images[0]}" alt=""><div><div class="t">${esc(short(p.title))}</div>
+      <div class="mini"><button data-act="dec" data-h="${p.handle}" aria-label="One less">−</button><span>${q}</span><button data-act="inc" data-h="${p.handle}" aria-label="One more">+</button><button class="rm" data-act="rm" data-h="${p.handle}">Remove</button></div></div>
+      <div class="num">${inr(p.price*q)}</div></div>`).join("") : `<div class="emptycart"><p>Your cart is empty.</p><button class="btn red" data-act="close" data-go="shop">Start shopping</button></div>`}</div>
+    ${lines.length ? `<footer><div class="row total"><span>Total</span><span class="num">${inr(cartTotal())}</span></div><div class="note">Free delivery. Pay in cash when your order arrives.</div><a class="btn red" href="#checkout" data-act="close">Checkout</a></footer>` : ""}
+  </aside>`;
+}
+
+/* ---- checkout ---- */
+function viewCheckout(){
+  const lines = cartLines();
+  if (!lines.length) {
+    $("#app").innerHTML = `<section class="co"><div class="wrap"><div class="done"><div class="box"><h1>Your cart is empty</h1><p class="muted">Add a few products, then come back here to place your order.</p><a class="btn red" href="#shop">Browse products</a></div></div></div></section>`;
+    return;
+  }
+  const saved = store.get("apra-address", {});
+  const f = (id, label, attrs = "", full = false) => `<label class="f${full ? " full" : ""}" id="w-${id}">${label}<input id="${id}" name="${id}" value="${esc(saved[id]||"")}" ${attrs}><span class="err" hidden></span></label>`;
+  $("#app").innerHTML = `<section class="co"><div class="wrap">
+    <h1>Almost there!</h1><p class="muted" style="margin:6px 0 0">Tell us where to deliver. No online payment: you pay in cash at your door.</p>
+    <form id="coform" novalidate class="layout">
+      <div style="display:flex;flex-direction:column;gap:20px;min-width:0">
+        <div class="panel"><h2>Your details</h2><div class="fields">
+          ${f("name","Full name",'autocomplete="name" required',true)}
+          ${f("phone","Mobile number",'inputmode="numeric" autocomplete="tel" maxlength="14" placeholder="10-digit mobile" required')}
+          ${f("phone2","Another number (optional)",'inputmode="numeric" maxlength="14"')}
+        </div></div>
+        <div class="panel"><h2>Delivery address</h2><div class="fields">
+          ${f("address","House no., street, area",'autocomplete="street-address" required',true)}
+          ${f("landmark","Landmark (optional)","",true)}
+          ${f("city","City or town",'autocomplete="address-level2" required')}
+          ${f("pincode","PIN code",'inputmode="numeric" maxlength="6" autocomplete="postal-code" required')}
+          <label class="f full" id="w-state">State<select id="state" name="state">${STATES.map(s => `<option${(saved.state||"Uttar Pradesh")===s?" selected":""}>${s}</option>`).join("")}</select></label>
+          <label class="f full">Note for delivery (optional)<textarea id="notes" name="notes" placeholder="Best time to deliver, gate number, etc."></textarea></label>
+        </div></div>
+        <div class="panel"><h2>Payment</h2><div class="pay"><span class="dot" aria-hidden="true"></span><div><b>Cash on delivery</b><span class="note">Pay <span class="num">${inr(cartTotal())}</span> in cash, or by UPI to the delivery person, when your order arrives. We call you to confirm before dispatch.</span></div></div></div>
+      </div>
+      <div class="panel summary">
+        <h2>Your order</h2>
+        ${lines.map(({p,q}) => `<div class="line"><img src="${p.images[0]}" alt=""><div class="t">${esc(short(p.title))}<div class="note"><span class="num">${q} × ${inr(p.price)}</span></div></div><div class="num">${inr(p.price*q)}</div></div>`).join("")}
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+          <div class="row"><span>Items</span><span class="num">${inr(cartTotal())}</span></div>
+          <div class="row"><span>Delivery</span><span style="color:var(--leaf);font-weight:700">Free</span></div>
+          <div class="row total"><span>Pay on delivery</span><span class="num">${inr(cartTotal())}</span></div>
+          <div class="formerr" id="formerr" hidden></div>
+          <button class="btn red" id="placebtn" type="submit" style="width:100%;margin-top:6px">Place order</button>
+          <p class="note" style="margin:0">We'll call your mobile number to confirm the order.</p>
+        </div>
+      </div>
+    </form></div></section>`;
+  $("#coform").addEventListener("submit", placeOrder);
+}
+
+function validate(){
+  const v = id => ($("#"+id)?.value || "").trim();
+  const digits = s => s.replace(/\D/g, "").replace(/^(91|0)(?=\d{10}$)/, "");
+  const errs = {};
+  if (v("name").length < 2) errs.name = "Enter your name.";
+  if (!/^[6-9]\d{9}$/.test(digits(v("phone")))) errs.phone = "Enter a 10-digit Indian mobile number.";
+  if (v("phone2") && !/^[6-9]\d{9}$/.test(digits(v("phone2")))) errs.phone2 = "Check this number, or leave it blank.";
+  if (v("address").length < 6) errs.address = "Enter your house number, street and area.";
+  if (v("city").length < 2) errs.city = "Enter your city or town.";
+  if (!/^[1-9]\d{5}$/.test(v("pincode"))) errs.pincode = "Enter a 6-digit PIN code.";
+  ["name","phone","phone2","address","city","pincode"].forEach(id => {
+    const w = $("#w-"+id); if (!w) return;
+    const e = w.querySelector(".err"); w.classList.toggle("bad", !!errs[id]); e.hidden = !errs[id]; e.textContent = errs[id] || "";
+  });
+  return {ok: !Object.keys(errs).length, first: Object.keys(errs)[0], data: {
+    name: v("name"), phone: digits(v("phone")), phone2: v("phone2") ? digits(v("phone2")) : "",
+    address: v("address"), landmark: v("landmark"), city: v("city"), pincode: v("pincode"), state: v("state"), notes: v("notes")}};
+}
+
+function newOrderId(){
+  const d = new Date(), pad = n => String(n).padStart(2, "0");
+  return `APRA-${String(d.getFullYear()).slice(2)}${pad(d.getMonth()+1)}${pad(d.getDate())}-${Math.random().toString(36).slice(2,6).toUpperCase()}`;
+}
+
+function waText(o){
+  return `New order ${o.id}\n` + o.items.map(i => `• ${i.title} × ${i.qty} = ${inr(i.qty*i.price)}`).join("\n") +
+    `\nTotal (cash on delivery): ${inr(o.total)}\n\n${o.customer.name}\n${o.customer.phone}${o.customer.phone2 ? " / " + o.customer.phone2 : ""}\n${o.customer.address}${o.customer.landmark ? ", " + o.customer.landmark : ""}\n${o.customer.city}, ${o.customer.state} ${o.customer.pincode}` + (o.customer.notes ? `\nNote: ${o.customer.notes}` : "");
+}
+
+let placing = false;
+async function placeOrder(ev){
+  ev.preventDefault();
+  if (placing) return;
+  const r = validate();
+  if (!r.ok) { $("#"+r.first)?.focus(); $("#formerr").hidden = false; $("#formerr").textContent = "A few details are missing. Please check the fields marked in red."; return; }
+  $("#formerr").hidden = true;
+  const {notes, ...addr} = r.data; store.set("apra-address", addr);
+  const lines = cartLines();
+  const o = {id: newOrderId(), createdAt: new Date().toISOString(), status: "new", payment: "Cash on delivery",
+    items: lines.map(({p,q}) => ({handle: p.handle, title: p.title, qty: q, price: p.price})),
+    total: cartTotal(), customer: r.data};
+  placing = true; const btn = $("#placebtn"); btn.disabled = true; btn.textContent = "Placing your order…";
+  let saved = false;
+  try { const db = await Promise.race([dbP, new Promise(res => setTimeout(() => res(null), 4000))]);
+    if (db) { await db.collection("orders").doc(o.id).set(o); saved = true; } } catch (e) { console.warn("db save failed", e); }
+  if (CONFIG.SHEET_URL) {
+    try { await fetch(CONFIG.SHEET_URL, {method: "POST", mode: "no-cors", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify(o)}); saved = true; }
+    catch (e) { console.warn("sheet save failed", e); }
+  }
+  o.saved = saved;
+  store.set("apra-last-order", o);
+  cart = {}; store.set("apra-cart", cart); $("#cartcount").textContent = 0;
+  placing = false;
+  location.hash = "done";
+}
+
+function viewDone(){
+  const o = store.get("apra-last-order", null);
+  if (!o) return viewHome();
+  const wa = `https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(waText(o))}`;
+  $("#app").innerHTML = `<section class="done"><div class="wrap"><div class="box">
+    <div class="tick"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></div>
+    <h1>${o.saved ? "Order placed. Dhanyavaad!" : "One last step"}</h1>
+    <p style="margin:0">Order <span class="oid">${esc(o.id)}</span></p>
+    <p style="margin:0">${o.saved ? `We'll call <b class="num">${esc(o.customer.phone)}</b> to confirm, then deliver to ${esc(o.customer.city)}. Keep <b class="num">${inr(o.total)}</b> ready in cash.` : `Tap the green button to send this order to APRA on WhatsApp. We'll call <b class="num">${esc(o.customer.phone)}</b> to confirm it.`}</p>
+    <div class="receipt">${o.items.map(i => `<div class="row"><span>${esc(short(i.title))} × ${i.qty}</span><span class="num">${inr(i.qty*i.price)}</span></div>`).join("")}
+      <div class="row total"><span>Cash on delivery</span><span class="num">${inr(o.total)}</span></div></div>
+    <div class="cta" style="justify-content:center"><a class="btn wa" href="${wa}" target="_blank" rel="noopener">${o.saved ? "Also send on WhatsApp" : "Send order on WhatsApp"}</a><a class="btn outline" href="#shop">Keep shopping</a></div>
+    <p class="note" style="margin:0">Questions? Call <span class="num">${CONFIG.CARE_PHONE}</span>.</p>
+  </div></div></section>`;
+}
+
+/* ---- orders (owner view) ---- */
+let unsubOrders = null;
+async function viewOrders(){
+  $("#app").innerHTML = `<section class="adm"><div class="wrap"><h1>Store orders</h1><p class="muted" id="admnote">Loading orders…</p><div id="admbody"></div></div></section>`;
+  const [db, user] = await Promise.all([dbP, userP]);
+  const can = user ? await user.canEdit() : false;
+  if (!db || !can) { $("#admnote").textContent = "Only the store owner can see orders here. Sign in with the owner account."; return; }
+  const timer = setTimeout(() => { $("#admnote").textContent = "Orders are taking long to load. Check your connection."; }, 10000);
+  unsubOrders?.();
+  unsubOrders = db.collection("orders").orderBy("createdAt", "desc").limit(300).onSnapshot(snap => {
+    clearTimeout(timer);
+    if (location.hash !== "#orders") return;
+    const os = snap.docs.map(d => ({...d.data(), _id: d.id}));
+    const live = os.filter(o => o.status !== "cancelled");
+    $("#admnote").textContent = os.length ? "Newest first. Change the status after you call the customer." : "No orders yet. They appear here the moment a customer places one.";
+    $("#admbody").innerHTML = `<div class="kpis">
+      <div><b>${os.filter(o=>o.status==="new").length}</b><span>new, to call</span></div>
+      <div><b>${os.filter(o=>o.status==="confirmed").length}</b><span>confirmed, to deliver</span></div>
+      <div><b>${os.filter(o=>o.status==="delivered").length}</b><span>delivered</span></div>
+      <div><b>${inr(live.reduce((s,o)=>s+(o.total||0),0))}</b><span>order value, not counting cancelled</span></div></div>
+      <div class="olist">${os.map(o => `<div class="order">
+        <div style="min-width:0"><h3>${esc(o.customer?.name)}<span class="pill st-${esc(o.status)}">${esc(o.status)}</span></h3>
+          <div class="meta"><span class="num">${esc(o.id)}</span> · ${new Date(o.createdAt).toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"})}</div>
+          <div style="margin-top:6px">Call <b class="num">${esc(o.customer?.phone)}</b>${o.customer?.phone2 ? ` / <span class="num">${esc(o.customer.phone2)}</span>` : ""}</div>
+          <div class="meta">${esc(o.customer?.address)}${o.customer?.landmark ? ", " + esc(o.customer.landmark) : ""}, ${esc(o.customer?.city)}, ${esc(o.customer?.state)} ${esc(o.customer?.pincode)}</div>
+          ${o.customer?.notes ? `<div class="meta">Note: ${esc(o.customer.notes)}</div>` : ""}</div>
+        <div style="min-width:0"><ul>${(o.items||[]).map(i => `<li>${esc(short(i.title))} × ${i.qty} <span class="num">(${inr(i.qty*i.price)})</span></li>`).join("")}</ul><div style="margin-top:6px"><b class="num">${inr(o.total)}</b> · cash on delivery</div></div>
+        <label class="f">Status<select data-status="${esc(o._id)}">${["new","confirmed","delivered","cancelled"].map(s => `<option value="${s}"${o.status===s?" selected":""}>${s[0].toUpperCase()+s.slice(1)}</option>`).join("")}</select></label>
+      </div>`).join("")}</div>`;
+  }, err => { clearTimeout(timer); $("#admnote").textContent = "Could not load orders: " + (err?.message || "unknown error"); });
+}
+
+/* ---- capabilities (only in the Claude preview; absent on the real website) ---- */
+const claudeP = new Promise(res => { let n = 0; const t = () => window.claude?.use ? res(window.claude) : (++n > 30 ? res(null) : setTimeout(t, 100)); t(); });
+const dbP = claudeP.then(c => c ? c.use("db") : null).catch(() => null);
+const userP = claudeP.then(c => c ? c.use("user") : null).catch(() => null);
+userP.then(async u => { if (u && await u.canEdit()) $("#adminlink").hidden = false; });
+
+/* ---- router ---- */
+function route(){
+  const h = location.hash.slice(1);
+  if (h !== "orders") { unsubOrders?.(); unsubOrders = null; }
+  if (h.startsWith("p-")) viewProduct(h.slice(2));
+  else if (h === "checkout") viewCheckout();
+  else if (h === "done") viewDone();
+  else if (h === "orders") viewOrders();
+  else {
+    if (h.startsWith("c-")) { state.cat = CATS.some(c => c.id === h.slice(2)) ? h.slice(2) : "all"; state.q = ""; $("#q").value = ""; }
+    if (!$("#grid")) viewHome(); else renderShopGrid();
+    if (h === "shop" || h.startsWith("c-") || state.q) { $("#shop")?.scrollIntoView({behavior:"smooth"}); return; }
+  }
+  window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", route);
+
+/* ---- events ---- */
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-act],[data-cat]");
+  if (!t) return;
+  const h = t.dataset.h;
+  switch (t.dataset.act) {
+    case "add": setQty(h, 1); toast(`Added ${short(byHandle[h].title)}`); break;
+    case "inc": setQty(h, (cart[h]||0) + 1); break;
+    case "dec": setQty(h, (cart[h]||0) - 1); break;
+    case "rm": setQty(h, 0); break;
+    case "close": closeDrawer(); if (t.dataset.go) location.hash = t.dataset.go; break;
+    case "clearq": state.q = ""; $("#q").value = ""; renderShopGrid(); break;
+  }
+  if (t.dataset.cat) {
+    state.cat = (t.dataset.scroll && state.cat === t.dataset.cat) ? "all" : t.dataset.cat;
+    state.q = ""; $("#q").value = "";
+    renderShopGrid();
+    if (t.dataset.scroll) $("#shop").scrollIntoView({behavior:"smooth"});
+  }
+});
+document.addEventListener("change", async e => {
+  if (e.target.id === "sort") { state.sort = e.target.value; renderShopGrid(); }
+  if (e.target.dataset.status) {
+    const db = await dbP; if (!db) return;
+    try { await db.collection("orders").doc(e.target.dataset.status).update({status: e.target.value, updatedAt: new Date().toISOString()}); toast("Status saved"); }
+    catch (err) { toast("Could not save the status. Try again."); }
+  }
+});
+$("#cartbtn").onclick = openDrawer;
+document.addEventListener("keydown", e => { if (e.key === "Escape") { closeDrawer(); hideSuggest(); } });
+
+/* search box with suggestions */
+const qEl = $("#q"), sg = $("#suggest");
+let sel = -1, results = [];
+function hideSuggest(){ sg.hidden = true; sel = -1; }
+function showSuggest(){
+  const q = qEl.value.trim();
+  if (!q) return hideSuggest();
+  results = search(q).slice(0, 6);
+  sg.innerHTML = results.length ? results.map((p, i) => `<button data-go="${p.handle}" class="${i===sel?"on":""}"><img src="${p.images[0]}" alt=""><span class="t">${esc(short(p.title))}<small>${catName(p.category)}</small></span><span class="num">${inr(p.price)}</span></button>`).join("") +
+    `<button data-all="1"><span class="t all">See all results for “${esc(q)}”</span></button>` : `<div class="empty">No products match “${esc(q)}”. Try milk, dahi or ghee.</div>`;
+  sg.hidden = false;
+}
+function runSearch(){ state.q = qEl.value.trim(); state.cat = "all"; hideSuggest(); if (location.hash && location.hash !== "#shop") location.hash = "shop"; else { if (!$("#grid")) viewHome(); renderShopGrid(); $("#shop").scrollIntoView({behavior:"smooth"}); } }
+qEl.addEventListener("input", () => { sel = -1; showSuggest(); });
+qEl.addEventListener("focus", showSuggest);
+qEl.addEventListener("keydown", e => {
+  if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); if (!results.length) return; sel = (sel + (e.key === "ArrowDown" ? 1 : -1) + results.length) % results.length; showSuggest(); }
+  else if (e.key === "Enter") { e.preventDefault(); if (sel >= 0 && results[sel]) { location.hash = "p-" + results[sel].handle; hideSuggest(); qEl.blur(); } else runSearch(); }
+});
+sg.addEventListener("mousedown", e => e.preventDefault());
+sg.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; if (b.dataset.go) { location.hash = "p-" + b.dataset.go; hideSuggest(); qEl.blur(); } else runSearch(); });
+qEl.addEventListener("blur", () => setTimeout(hideSuggest, 120));
+
+$("#cartcount").textContent = cartCount();
+route();
+})();
+</script>
