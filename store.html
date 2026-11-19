@@ -3,7 +3,7 @@
 <meta name="description" content="Fresh milk, dahi, paneer, lassi and bilona ghee from APRA, Bundelkhand's first dairy. Order online, pay cash on delivery.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&family=DM+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap">
 <style>
 /* Design system: DESIGN.md "Doodh Pop". Layout: search-first header, red hero band with a curved edge, category circles, chip-filtered grid of tinted product cards, a ghee band; detail, checkout and orders are hash views. */
 :root{
@@ -13,7 +13,7 @@
   --on-red:#FFFFFF; --on-ghee:#1D1B2C; --scrim:rgba(20,19,32,.5);
   --f-display:"Baloo 2","Nunito Sans",system-ui,sans-serif;
   --f-body:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --f-num:"DM Mono",ui-monospace,monospace;
+  --f-num:"Nunito Sans",system-ui,sans-serif;
   color-scheme:light;
 }
 *{box-sizing:border-box}
@@ -24,7 +24,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--ghee);outline-offset:2px;border-radius:8px}
 h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance}
 .wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;font-weight:700}
 .label{font-size:.82rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
 .muted{color:var(--muted)}
 
@@ -122,7 +122,7 @@ select.sort{height:44px;border-radius:999px;border:1.5px solid var(--border);bac
 .card h3 a{text-decoration:none}
 .card h3 a:hover{color:var(--red)}
 .pr{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-.pr b{font-family:var(--f-num);font-size:1.2rem;font-weight:500}
+.pr b{font-family:var(--f-num);font-size:1.2rem;font-weight:800;font-variant-numeric:tabular-nums}
 .pr s{font-family:var(--f-num);color:var(--muted);font-size:.9rem}
 .unit{font-size:.82rem;color:var(--muted)}
 .card .add{margin-top:auto;padding-top:8px}

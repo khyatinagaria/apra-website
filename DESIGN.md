@@ -41,11 +41,12 @@ Rules
 | H3 (card title) | Baloo 2 | 1.05rem / 1.25 | 600 |
 | Body | Nunito Sans | 1rem (16px) / 1.6 | 400, 600 for emphasis |
 | Small / labels | Nunito Sans | 0.82rem / 1.4, labels +0.06em tracking | 600 |
-| Prices and numbers | DM Mono | 1rem to 1.8rem, tabular figures | 500 |
+| Prices and numbers | Nunito Sans | 1rem to 2rem, tabular figures | 700 to 800 |
 
 - Baloo 2 also covers Devanagari, so Hindi words sit in the same style.
-- Fallback stacks: `"Baloo 2", "Nunito Sans", system-ui, sans-serif` and `"DM Mono", ui-monospace, monospace`.
+- Fallback stacks: `"Baloo 2", "Nunito Sans", system-ui, sans-serif` and `"Nunito Sans", system-ui, sans-serif` with `font-variant-numeric: tabular-nums` for prices.
 - Body text is never smaller than 15px. Prices are never grey.
+- Prices never use a font with a slashed or dotted zero: ₹300 must read as three hundred at a glance (changed from DM Mono on 2026-11-19).
 
 ## 4. Shape, space and motion
 - Radius: 999px on buttons, chips and search; 20px on cards; 28px on hero images.
@@ -57,10 +58,10 @@ Rules
 ## 5. Components
 - **Header:** logo, a wide rounded search bar (always visible, also on phones) and a red cart pill with a count.
 - **Category circles:** round product photos on `--surface`, with the English name and Hindi below.
-- **Product card:** square photo on a category-tinted field, name in Baloo 2, price in DM Mono, price per litre or kg in small muted text, then a full-width red Add button that turns into a − 2 + stepper.
+- **Product card:** square photo on a category-tinted field, name in Baloo 2, price in bold Nunito Sans, price per litre or kg in small muted text, then a full-width red Add button that turns into a − 2 + stepper.
 - **Hero:** a red band with a white headline, a ghee-yellow button, a big pack shot and a curved bottom edge.
 - **Checkout:** one column on phones, a green "Cash on delivery" card, large 48px inputs and a red Place order button that stays visible.
-- **Trust strip:** farmers count, families served and pasteurisation facts, written as numbers in DM Mono.
+- **Trust strip:** farmers count, families served and pasteurisation facts, written as large bold numbers.
 
 ## 6. Imagery
 - Use APRA's real pack shots and lifestyle photos only.
