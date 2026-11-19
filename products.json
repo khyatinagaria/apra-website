@@ -7,10 +7,7 @@
   "compare": 0,
   "category": "ghee",
   "brand": "APRA",
-  "unit": [
-   1200.0,
-   "L"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -40,10 +37,7 @@
   "compare": 0,
   "category": "ghee",
   "brand": "APRA",
-  "unit": [
-   1333.33,
-   "kg"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -74,10 +68,7 @@
   "compare": 0,
   "category": "ghee",
   "brand": "APRA",
-  "unit": [
-   1200.0,
-   "L"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -134,10 +125,7 @@
   "compare": 0,
   "category": "milk",
   "brand": "APRA",
-  "unit": [
-   64.0,
-   "L"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -168,10 +156,7 @@
   "compare": 0,
   "category": "curd",
   "brand": "APRA",
-  "unit": [
-   100.0,
-   "kg"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -202,10 +187,7 @@
   "compare": 0,
   "category": "curd",
   "brand": "APRA",
-  "unit": [
-   100.0,
-   "kg"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -236,10 +218,7 @@
   "compare": 0,
   "category": "curd",
   "brand": "APRA",
-  "unit": [
-   80.0,
-   "kg"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -270,10 +249,7 @@
   "compare": 0,
   "category": "curd",
   "brand": "APRA",
-  "unit": [
-   80.0,
-   "kg"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -304,10 +280,7 @@
   "compare": 0,
   "category": "curd",
   "brand": "APRA",
-  "unit": [
-   80.0,
-   "kg"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -338,10 +311,7 @@
   "compare": 0,
   "category": "curd",
   "brand": "APRA",
-  "unit": [
-   75.0,
-   "kg"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -372,10 +342,7 @@
   "compare": 0,
   "category": "curd",
   "brand": "APRA",
-  "unit": [
-   75.0,
-   "kg"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -406,10 +373,7 @@
   "compare": 0,
   "category": "milk",
   "brand": "APRA",
-  "unit": [
-   72.0,
-   "L"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -503,10 +467,7 @@
   "compare": 0,
   "category": "drinks",
   "brand": "APRA",
-  "unit": [
-   125.0,
-   "kg"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -537,10 +498,7 @@
   "compare": 0,
   "category": "drinks",
   "brand": "APRA",
-  "unit": [
-   50.0,
-   "kg"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -571,10 +529,7 @@
   "compare": 0,
   "category": "drinks",
   "brand": "APRA",
-  "unit": [
-   40.0,
-   "L"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -606,7 +561,7 @@
   "category": "milk",
   "brand": "APRA",
   "unit": [
-   55.56,
+   50.0,
    "L"
   ],
   "description": [
@@ -634,10 +589,7 @@
   "compare": 0,
   "category": "curd",
   "brand": "APRA",
-  "unit": [
-   350.0,
-   "kg"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -668,10 +620,7 @@
   "compare": 0,
   "category": "drinks",
   "brand": "APRA",
-  "unit": [
-   30.0,
-   "L"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -702,10 +651,7 @@
   "compare": 0,
   "category": "drinks",
   "brand": "APRA",
-  "unit": [
-   28.57,
-   "L"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -736,10 +682,7 @@
   "compare": 0,
   "category": "ghee",
   "brand": "APRA",
-  "unit": [
-   600.0,
-   "L"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -770,10 +713,7 @@
   "compare": 0,
   "category": "ghee",
   "brand": "APRA",
-  "unit": [
-   653.33,
-   "kg"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -804,10 +744,7 @@
   "compare": 0,
   "category": "ghee",
   "brand": "APRA",
-  "unit": [
-   666.67,
-   "L"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -838,10 +775,7 @@
   "compare": 0,
   "category": "ghee",
   "brand": "APRA",
-  "unit": [
-   666.67,
-   "L"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -872,10 +806,7 @@
   "compare": 0,
   "category": "curd",
   "brand": "APRA",
-  "unit": [
-   250.0,
-   "kg"
-  ],
+  "unit": null,
   "description": [
    "APRA collect milk from Trusted Farmers of Bundelkhand.",
    "100% Natural and pure.",
@@ -938,10 +869,7 @@
   "compare": 0,
   "category": "pantry",
   "brand": "Vedanti Natural",
-  "unit": [
-   62.5,
-   "kg"
-  ],
+  "unit": null,
   "description": [],
   "images": [
    "images/kathiya-atta-1-kg-0.webp",
@@ -960,10 +888,7 @@
   "compare": 0,
   "category": "pantry",
   "brand": "Vedanti Natural",
-  "unit": [
-   120.0,
-   "kg"
-  ],
+  "unit": null,
   "description": [
    "100% Natural & Pure",
    "No Preservatives",
@@ -990,10 +915,7 @@
   "compare": 0,
   "category": "pantry",
   "brand": "Vedanti Natural",
-  "unit": [
-   142.86,
-   "kg"
-  ],
+  "unit": null,
   "description": [
    "100% Natural & Pure",
    "No Preservatives",
@@ -1020,10 +942,7 @@
   "compare": 0,
   "category": "pantry",
   "brand": "Vedanti Natural",
-  "unit": [
-   240.0,
-   "L"
-  ],
+  "unit": null,
   "description": [],
   "images": [
    "images/mustard-oil-coldpress-1-litre-0.webp"

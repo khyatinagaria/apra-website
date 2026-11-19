@@ -430,7 +430,7 @@ function viewHome(){
   <section class="hero"><div class="wrap">
     <div>
       <div class="label">Bundelkhand's first dairy</div>
-      <h1>Fresh doodh, every morning.<span class="hi">ताज़ा दूध, हर सुबह।</span></h1>
+      <h1>Pure doodh from Bundelkhand.<span class="hi">शुद्ध दूध, बुंदेलखंड से।</span></h1>
       <p>Milk, dahi, paneer, lassi and pure bilona ghee from 1000+ local farmers. Free delivery, and you pay cash when it reaches your door.</p>
       <div class="cta"><a class="btn ghee" href="#shop">Shop now</a><a class="btn outline" href="#c-ghee">See our ghee</a></div>
     </div>
@@ -456,8 +456,8 @@ function viewHome(){
     <div>
       <div class="label" style="color:var(--leaf)">Vedanti Natural · वेदांती नेचुरल</div>
       <h2>A2 bilona ghee, churned the old way</h2>
-      <p>Curd is hand-churned with a wooden bilona to get makkhan, which is slowly heated into golden ghee. Nothing else goes in.</p>
-      <ul><li>No preservatives, colours or flavouring</li><li>Milk from trusted farmers of Bundelkhand</li><li>Jars from 500 ml to 4.5 kg</li></ul>
+      <p>Made by the bilona method from milk collected from trusted farmers of Bundelkhand. 100% natural and pure.</p>
+      <ul><li>No preservatives</li><li>No artificial flavouring</li><li>No artificial colours</li></ul>
       <div class="cta"><a class="btn red" href="#p-${gheeP.handle}">Buy 1 litre · <span class="num">${inr(gheeP.price)}</span></a><a class="btn outline" href="#c-ghee">All ghee</a></div>
     </div>
   </div></section>` : ""}`;
@@ -478,7 +478,7 @@ function viewProduct(h){
       <div class="info">
         <div class="label">${esc(p.brand)} · ${catName(p.category)}</div>
         <h1>${esc(p.title)}</h1>
-        <div><div class="pr"><b>${inr(p.price)}</b>${p.compare ? `<s>${inr(p.compare)}</s>` : ""}</div><div class="unit">${unitTxt(p)} · inclusive of all taxes</div></div>
+        <div><div class="pr"><b>${inr(p.price)}</b>${p.compare ? `<s>${inr(p.compare)}</s>` : ""}</div><div class="unit">${unitTxt(p)}</div></div>
         <div class="buy">
           <div class="qty"><button id="qm" aria-label="One less">−</button><span id="qv">1</span><button id="qp" aria-label="One more">+</button></div>
           <button class="btn red" id="addp">Add to cart</button>
@@ -523,7 +523,7 @@ function viewCheckout(){
   const saved = store.get("apra-address", {});
   const f = (id, label, attrs = "", full = false) => `<label class="f${full ? " full" : ""}" id="w-${id}">${label}<input id="${id}" name="${id}" value="${esc(saved[id]||"")}" ${attrs}><span class="err" hidden></span></label>`;
   $("#app").innerHTML = `<section class="co"><div class="wrap">
-    <h1>Almost there!</h1><p class="muted" style="margin:6px 0 0">Tell us where to deliver. No online payment: you pay in cash at your door.</p>
+    <h1>Almost there!</h1><p class="muted" style="margin:6px 0 0">Tell us where to deliver. You pay in cash when your order arrives.</p>
     <form id="coform" novalidate class="layout">
       <div style="display:flex;flex-direction:column;gap:20px;min-width:0">
         <div class="panel"><h2>Your details</h2><div class="fields">
@@ -539,7 +539,7 @@ function viewCheckout(){
           <label class="f full" id="w-state">State<select id="state" name="state">${STATES.map(s => `<option${(saved.state||"Uttar Pradesh")===s?" selected":""}>${s}</option>`).join("")}</select></label>
           <label class="f full">Note for delivery (optional)<textarea id="notes" name="notes" placeholder="Best time to deliver, gate number, etc."></textarea></label>
         </div></div>
-        <div class="panel"><h2>Payment</h2><div class="pay"><span class="dot" aria-hidden="true"></span><div><b>Cash on delivery</b><span class="note">Pay <span class="num">${inr(cartTotal())}</span> in cash, or by UPI to the delivery person, when your order arrives. We call you to confirm before dispatch.</span></div></div></div>
+        <div class="panel"><h2>Payment</h2><div class="pay"><span class="dot" aria-hidden="true"></span><div><b>Cash on delivery</b><span class="note">Pay <span class="num">${inr(cartTotal())}</span> in cash when your order arrives.</span></div></div></div>
       </div>
       <div class="panel summary">
         <h2>Your order</h2>
@@ -550,7 +550,7 @@ function viewCheckout(){
           <div class="row total"><span>Pay on delivery</span><span class="num">${inr(cartTotal())}</span></div>
           <div class="formerr" id="formerr" hidden></div>
           <button class="btn red" id="placebtn" type="submit" style="width:100%;margin-top:6px">Place order</button>
-          <p class="note" style="margin:0">We'll call your mobile number to confirm the order.</p>
+          
         </div>
       </div>
     </form></div></section>`;
@@ -621,7 +621,7 @@ function viewDone(){
     <div class="tick"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></div>
     <h1>${o.saved ? "Order placed. Dhanyavaad!" : "One last step"}</h1>
     <p style="margin:0">Order <span class="oid">${esc(o.id)}</span></p>
-    <p style="margin:0">${o.saved ? `We'll call <b class="num">${esc(o.customer.phone)}</b> to confirm, then deliver to ${esc(o.customer.city)}. Keep <b class="num">${inr(o.total)}</b> ready in cash.` : `Tap the green button to send this order to APRA on WhatsApp. We'll call <b class="num">${esc(o.customer.phone)}</b> to confirm it.`}</p>
+    <p style="margin:0">${o.saved ? `Your order will be delivered to ${esc(o.customer.city)}. Please keep <b class="num">${inr(o.total)}</b> ready in cash.` : `Tap the green button to send this order to APRA on WhatsApp.`}</p>
     <div class="receipt">${o.items.map(i => `<div class="row"><span>${esc(short(i.title))} × ${i.qty}</span><span class="num">${inr(i.qty*i.price)}</span></div>`).join("")}
       <div class="row total"><span>Cash on delivery</span><span class="num">${inr(o.total)}</span></div></div>
     <div class="cta" style="justify-content:center"><a class="btn wa" href="${wa}" target="_blank" rel="noopener">${o.saved ? "Also send on WhatsApp" : "Send order on WhatsApp"}</a><a class="btn outline" href="#shop">Keep shopping</a></div>
