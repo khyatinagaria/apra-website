@@ -211,6 +211,8 @@ label.f input,label.f select,label.f textarea{height:50px;border-radius:14px;bor
 label.f textarea{height:84px;padding:12px 14px;resize:vertical}
 label.f input:focus,label.f select:focus,label.f textarea:focus{border-color:var(--red);outline:none;background:var(--bg)}
 label.f .err{color:var(--red);font-size:.85rem}
+label.f .req{color:var(--red);margin-left:2px}
+label.f.bad input,label.f.bad select{border-color:var(--red)}
 label.f.bad input{border-color:var(--red)}
 .pay{display:flex;gap:14px;align-items:flex-start;background:var(--surface-leaf);border:2px solid var(--leaf);border-radius:16px;padding:16px}
 .pay .dot{width:22px;height:22px;border-radius:50%;border:7px solid var(--leaf);background:var(--bg);flex-shrink:0;margin-top:2px}
@@ -521,22 +523,23 @@ function viewCheckout(){
     return;
   }
   const saved = store.get("apra-address", {});
+  const R = t => `<span>${t}<span class="req" aria-hidden="true">*</span></span>`;
   const f = (id, label, attrs = "", full = false) => `<label class="f${full ? " full" : ""}" id="w-${id}">${label}<input id="${id}" name="${id}" value="${esc(saved[id]||"")}" ${attrs}><span class="err" hidden></span></label>`;
   $("#app").innerHTML = `<section class="co"><div class="wrap">
-    <h1>Almost there!</h1><p class="muted" style="margin:6px 0 0">Tell us where to deliver. You pay in cash when your order arrives.</p>
+    <h1>Almost there!</h1><p class="muted" style="margin:6px 0 0">Tell us where to deliver. You pay in cash when your order arrives. Fields marked <span style="color:var(--red)">*</span> are required.</p>
     <form id="coform" novalidate class="layout">
       <div style="display:flex;flex-direction:column;gap:20px;min-width:0">
         <div class="panel"><h2>Your details</h2><div class="fields">
-          ${f("name","Full name",'autocomplete="name" required',true)}
-          ${f("phone","Mobile number",'inputmode="numeric" autocomplete="tel" maxlength="14" placeholder="10-digit mobile" required')}
+          ${f("name",R("Full name"),'autocomplete="name" required',true)}
+          ${f("phone",R("Mobile number"),'inputmode="numeric" autocomplete="tel" maxlength="14" placeholder="10-digit mobile" required')}
           ${f("phone2","Another number (optional)",'inputmode="numeric" maxlength="14"')}
         </div></div>
         <div class="panel"><h2>Delivery address</h2><div class="fields">
-          ${f("address","House no., street, area",'autocomplete="street-address" required',true)}
+          ${f("address",R("House no., street, area"),'autocomplete="street-address" required',true)}
           ${f("landmark","Landmark (optional)","",true)}
-          ${f("city","City or town",'autocomplete="address-level2" required')}
-          ${f("pincode","PIN code",'inputmode="numeric" maxlength="6" autocomplete="postal-code" required')}
-          <label class="f full" id="w-state">State<select id="state" name="state">${STATES.map(s => `<option${(saved.state||"Uttar Pradesh")===s?" selected":""}>${s}</option>`).join("")}</select></label>
+          ${f("city",R("City or town"),'autocomplete="address-level2" required')}
+          ${f("pincode",R("PIN code"),'inputmode="numeric" maxlength="6" autocomplete="postal-code" required')}
+          <label class="f full" id="w-state">${R("State")}<select id="state" name="state" required><option value="">Select your state</option>${STATES.map(s => `<option${saved.state===s?" selected":""}>${s}</option>`).join("")}</select><span class="err" hidden></span></label>
           <label class="f full">Note for delivery (optional)<textarea id="notes" name="notes" placeholder="Best time to deliver, gate number, etc."></textarea></label>
         </div></div>
         <div class="panel"><h2>Payment</h2><div class="pay"><span class="dot" aria-hidden="true"></span><div><b>Cash on delivery</b><span class="note">Pay <span class="num">${inr(cartTotal())}</span> in cash when your order arrives.</span></div></div></div>
@@ -567,7 +570,8 @@ function validate(){
   if (v("address").length < 6) errs.address = "Enter your house number, street and area.";
   if (v("city").length < 2) errs.city = "Enter your city or town.";
   if (!/^[1-9]\d{5}$/.test(v("pincode"))) errs.pincode = "Enter a 6-digit PIN code.";
-  ["name","phone","phone2","address","city","pincode"].forEach(id => {
+  if (!v("state")) errs.state = "Select your state.";
+  ["name","phone","phone2","address","city","pincode","state"].forEach(id => {
     const w = $("#w-"+id); if (!w) return;
     const e = w.querySelector(".err"); w.classList.toggle("bad", !!errs[id]); e.hidden = !errs[id]; e.textContent = errs[id] || "";
   });
